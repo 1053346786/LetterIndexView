@@ -33,6 +33,8 @@ public class LetterIndexView extends View {
             "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U",
             "V", "W", "X", "Y", "Z", "#"};
 
+    private final int DEFAULT_WIDTH;
+
     public LetterIndexView(Context context) {
         this(context, null);
     }
@@ -47,6 +49,32 @@ public class LetterIndexView extends View {
         paint.setAntiAlias(true);
         paint.setTextAlign(Paint.Align.CENTER);
         paint.setColor(Color.parseColor("#565656"));
+        DEFAULT_WIDTH = dpToPx(context, 24);
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        setMeasuredDimension(getWidthSize(widthMeasureSpec), getDefaultSize(getSuggestedMinimumHeight(), heightMeasureSpec));
+    }
+
+    private int getWidthSize(int widthMeasureSpec) {
+        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+        switch (widthMode) {
+            case MeasureSpec.AT_MOST: {
+                if (widthSize >= DEFAULT_WIDTH) {
+                    return DEFAULT_WIDTH;
+                } else {
+                    return widthSize;
+                }
+            }
+            case MeasureSpec.EXACTLY: {
+                return widthSize;
+            }
+            case MeasureSpec.UNSPECIFIED:
+            default:
+                return DEFAULT_WIDTH;
+        }
     }
 
     @Override
@@ -97,6 +125,11 @@ public class LetterIndexView extends View {
 
     public void setOnTouchingLetterChangedListener(OnTouchingLetterChangedListener onTouchingLetterChangedListener) {
         this.touchingLetterChangedListener = onTouchingLetterChangedListener;
+    }
+
+    private int dpToPx(Context context, float dpValue) {
+        float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
     }
 
 }
