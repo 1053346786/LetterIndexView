@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <ListView
+        android:id="@+id/lv_contactsList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toStartOf="@+id/liv_letters"
+        android:scrollbars="none" />
+
+    <TextView
+        android:id="@+id/tv_hint"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/text_view_hint_bg"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="45sp"
+        android:visibility="gone" />
+
+    <com.czy.letterindex.LetterIndexView
+        android:id="@+id/liv_letters"
+        android:layout_width="22dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>
